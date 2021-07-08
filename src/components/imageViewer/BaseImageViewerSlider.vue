@@ -1,29 +1,36 @@
 <template>
-  <div class="slider">
-    <button
-      class="prev-next-button prev-button"
-      @click="changeImagePrevNext('prev')"
-    >
-      prev
-    </button>
+  <div class="slider" :class="{ expandido: expanded }">
+    <div class="slider-expandir">
+      <button @click="changeExpanded">expandir</button>
+      Ola mundo
+    </div>
 
-    <ul class="slider__list">
-      <li
-        v-for="(item, index) in images"
-        :key="index"
-        class="slider__list-item"
-        @click="changeImage(index)"
+    <div class="slider-content">
+      <button
+        class="prev-next-button prev-button"
+        @click="changeImagePrevNext('prev')"
       >
-        <img :src="item.img" alt="" class="slider__list-img" />
-      </li>
-    </ul>
+        prev
+      </button>
 
-    <button
-      class="prev-next-button next-button"
-      @click="changeImagePrevNext('next')"
-    >
-      next
-    </button>
+      <ul class="slider__list">
+        <li
+          v-for="(item, index) in images"
+          :key="index"
+          class="slider__list-item"
+          @click="changeImage(index)"
+        >
+          <img :src="item.img" alt="" class="slider__list-img" />
+        </li>
+      </ul>
+
+      <button
+        class="prev-next-button next-button"
+        @click="changeImagePrevNext('next')"
+      >
+        next
+      </button>
+    </div>
   </div>
 </template>
 
@@ -36,7 +43,15 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      expanded: true,
+    };
+  },
   methods: {
+    changeExpanded() {
+      this.expanded = !this.expanded;
+    },
     changeImage(index) {
       this.$emit("change-image", index);
     },
@@ -55,9 +70,24 @@ export default {
   left: 0;
   right: 0;
   z-index: 90002;
-  height: 52px;
+  height: 30px;
   overflow: hidden;
   background: red;
+}
+.expandido {
+  height: 90px;
+}
+.slider-expandir {
+  height: 30px;
+  background: blueviolet;
+  overflow: hidden;
+  position: relative;
+}
+.slider-content {
+  height: 60px;
+  background: blueviolet;
+  overflow: hidden;
+  position: relative;
 }
 .slider__list {
   list-style-type: none;
