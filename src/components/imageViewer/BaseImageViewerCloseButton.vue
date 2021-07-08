@@ -1,17 +1,26 @@
 <template>
-  <div class="hello">Fechar</div>
+  <div class="close">
+    <button @click="closeViewer">close</button>
+  </div>
 </template>
 
 <script>
 export default {
   name: "BaseImageViewerCloseButton",
+  methods: {
+    closeViewer() {
+      this.$emit("close-viewer");
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.hello {
-  height: 20px;
-  background: blue;
+.close {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  z-index: 90002;
 }
 </style>

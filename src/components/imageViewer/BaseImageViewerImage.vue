@@ -23,13 +23,14 @@
         class="base-image-tools-itens"
       />
       <br />
-
-      <button @click="fechar" class="base-image-tools-itens">close</button>
+      <BaseImageViewerCloseButton @close-viewer="fechar" />
       <br />
-      <BaseImageViewerCloseButton class="base-image-tools-itens" />
-      <br />
-      <BaseImageViewerSlider class="base-image-tools-itens" />
-      <div class="base-image-tools">as</div>
+      <BaseImageViewerSlider
+        :images="images"
+        @change-image="changeImage"
+        @change-image-prev-next="changeImagePrevNext"
+      />
+      <div class="base-image-tools"></div>
     </div>
   </div>
 </template>
@@ -67,13 +68,13 @@ export default {
       config: {
         button: false,
         loading: true,
-        navbar: true,
+        navbar: false,
         toggleOnDblclick: true,
         zoomable: true,
         zoomOnTouch: true,
         zoomOnWheel: true,
         inline: false,
-        backdrop: true,
+        backdrop: false,
         focus: false,
         fullscreen: false,
         loop: false,
@@ -112,6 +113,16 @@ export default {
       this.viewer.destroy();
       this.disableZoomLessButton = false;
       this.showModal = false;
+    },
+    changeImage(imageIndex) {
+      this.viewer.view(imageIndex);
+    },
+    changeImagePrevNext(type) {
+      if (type === "prev") {
+        this.viewer.prev();
+      } else {
+        this.viewer.next();
+      }
     },
     getImage(value) {
       const img = this.images.filter((item) => item.id === this.imageId)[0];
@@ -178,6 +189,7 @@ export default {
   left: 0;
   right: 0;
   z-index: 90001;
+  background: black;
 }
 .base-image-tools-itens {
   position: absolute;
