@@ -87,7 +87,7 @@ export default {
         toolbar: false,
         tooltip: true,
         transition: false,
-        minZoomRatio: 0.9,
+        minZoomRatio: 1,
         maxZoomRatio: 10,
       },
     };
@@ -137,10 +137,11 @@ export default {
 
         this.viewer = new Viewer(imageRef, {
           ...viewerConfig,
-          ready() {
+          viewed() {
             // console.log("oi");
             // _.viewer.zoomTo(30);
             // this.viewer.show();
+            this.viewer.toggle();
           },
         });
       }

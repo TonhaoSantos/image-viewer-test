@@ -19,21 +19,19 @@ export default {
         type: "",
       },
       disableZoomPlusButton: false,
-      disableZoomLessButton: false,
+      disableZoomLessButton: true,
     };
   },
   methods: {
     changeZoomTo(type) {
       let currentZoom = this.zoom.number;
 
-      console.log(currentZoom, type);
-
       if (type === "plus" && currentZoom < 9) {
         currentZoom += 1;
       } else if (type === "less" && currentZoom > 0) {
         currentZoom -= 1;
       }
-      console.log(currentZoom);
+
       if (currentZoom > 0 && currentZoom < 9) {
         this.disableZoomPlusButton = false;
         this.disableZoomLessButton = false;
